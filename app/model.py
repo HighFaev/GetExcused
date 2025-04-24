@@ -1,4 +1,10 @@
 import sqlite3
+import os
+
+try:
+    os.mkdir("../data")
+except FileExistsError:
+    ...
 
 rankDatabaseConnection = sqlite3.connect('../data/excuses_ranks.db')
 cursor = rankDatabaseConnection.cursor()
