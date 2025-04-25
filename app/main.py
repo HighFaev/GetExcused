@@ -17,9 +17,9 @@ app = FastAPI()
 async def root(request: Request):
     return await controller.root_controller(request)
 
-@app.post("/like-excuse",)
-async def like_excuse(text: str):
-    await controller.like_excuse(text)
+@app.post("/change-excuse-rank",)
+async def change_excuse_rank(text: str):
+    await controller.change_excuse_rank(text)
 
 #Run file if runfile named "main.py"
 if __name__ == "__main__":
