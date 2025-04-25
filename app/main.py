@@ -17,6 +17,10 @@ app = FastAPI()
 async def root(request: Request):
     return await controller.root_controller(request)
 
+@app.post("/like-excuse",)
+async def like_excuse(text: str):
+    await controller.like_excuse(text)
+
 #Run file if runfile named "main.py"
 if __name__ == "__main__":
     uvicorn.run("main:app", port=8000, reload=True)
