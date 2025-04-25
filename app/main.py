@@ -18,8 +18,8 @@ async def root(request: Request):
     return await controller.root_controller(request)
 
 @app.post("/change-excuse-rank",)
-async def change_excuse_rank(text: str):
-    await controller.change_excuse_rank(text)
+async def change_excuse_rank(text: str, deltaRank: int):
+    await controller.change_excuse_rank(text, deltaRank)
 
 #Run file if runfile named "main.py"
 if __name__ == "__main__":
