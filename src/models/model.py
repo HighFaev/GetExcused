@@ -2,6 +2,8 @@ import sqlite3
 from sqlite3 import Cursor, Connection
 import os
 
+rankDatabasePath = '../data/excuses_ranks.db'
+
 #Create DB if not exist
 def create_excuses_db():
     #Create folder for DB if not exist
@@ -50,7 +52,7 @@ def add_excuse(text: str, cursor: Cursor):
 #Change 'rank' in BD and delete element if 'rank' < 1
 def change_rank(text: str, deltaRank: int):
     #Connect to DB
-    rankDatabaseConnection, cursor = connect_to_db('../data/excuses_ranks.db')
+    rankDatabaseConnection, cursor = connect_to_db(rankDatabasePath)
     #Try to add element
     add_excuse(text, cursor)
     #Update'rank'
@@ -64,12 +66,11 @@ def change_rank(text: str, deltaRank: int):
 #Get certian amount of Excuses from DB
 def get_excuses(numberOfExcuses: int, needAll = False):
     #Connect to DB
-    rankDatabaseConnection, cursor = connect_to_db('../data/excuses_ranks.db')
+    rankDatabaseConnection, cursor = connect_to_db(rankDatabasePath)
     #Get values
-    if needAll == True:
+    if needAll:
         cursor.execute('SELECT * FROM Excuses')
     else:
-        print(f'numberOfExcuses = {numberOfExcuses}')
         cursor.execute('SELECT * FROM Excuses ORDER BY rank DESC LIMIT ?', (numberOfExcuses,))
     results = cursor.fetchall()
     
