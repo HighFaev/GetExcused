@@ -1,5 +1,5 @@
 import sqlite3
-from sqlite3 import Cursor
+from sqlite3 import Cursor, Connection
 import os
 
 #Create DB if not exist
@@ -50,8 +50,7 @@ def add_excuse(text: str, cursor: Cursor):
 #Change 'rank' in BD and delete element if 'rank' < 1
 def change_rank(text: str, deltaRank: int):
     #Connect to DB
-    rankDatabaseConnection = sqlite3.connect('../data/excuses_ranks.db')
-    cursor = rankDatabaseConnection.cursor()
+    rankDatabaseConnection, cursor = connect_to_db('../data/excuses_ranks.db')
     #Try to add element
     add_excuse(text, cursor)
     #Update'rank'
@@ -60,9 +59,36 @@ def change_rank(text: str, deltaRank: int):
     cursor.execute('DELETE FROM Excuses WHERE text = ? AND rank < 1', (text,))
 
     #Save changes
-    rankDatabaseConnection.commit()
-    cursor.close()
-    rankDatabaseConnection.close()
+    disconnect_from_db(rankDatabaseConnection, cursor)
 
+#Get certian amount of Excuses from DB
+def get_excuses(numberOfExcuses: int, needAll = False):
+    #Connect to DB
+    rankDatabaseConnection, cursor = connect_to_db('../data/excuses_ranks.db')
+    #Get values
+    if needAll == True:
+        cursor.execute('SELECT * FROM Excuses')
+    else:
+        print(f'numberOfExcuses = {numberOfExcuses}')
+        cursor.execute('SELECT * FROM Excuses ORDER BY rank DESC LIMIT ?', (numberOfExcuses,))
+    results = cursor.fetchall()
+    
+    #Disconnect from DB
+    disconnect_from_db(rankDatabaseConnection, cursor)
+    #Return results
+    return results
+
+#Connect to database
+def connect_to_db(path: str):
+    databaseConnection = sqlite3.connect(path)
+    cursor = databaseConnection.cursor()
+
+    return databaseConnection, cursor
+
+#Disconnect from database
+def disconnect_from_db(databaseConnection: Connection, cursor: Cursor):
+    databaseConnection.commit()
+    cursor.close()
+    databaseConnection.close()    
 
 create_excuses_db()

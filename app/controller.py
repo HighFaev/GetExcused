@@ -7,3 +7,6 @@ async def root_controller(request: Request):
 
 async def change_excuse_rank(text: str, deltaRank: int):
     model.change_rank(text, deltaRank)
+
+async def get_excuses(numberOfExcuses: int, needAll: bool):
+    return model.get_excuses(numberOfExcuses, needAll)
