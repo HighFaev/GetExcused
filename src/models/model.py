@@ -2,17 +2,17 @@ import sqlite3
 from sqlite3 import Cursor, Connection
 import os
 
-rankDatabasePath = '../data/excuses_ranks.db'
+rankDatabasePath = 'src/models/bd/excuses_ranks.db'
 
 #Create DB if not exist
 def create_excuses_db():
     #Create folder for DB if not exist
     try:
-        os.mkdir("../data")
+        os.mkdir("src/models/bd")
     except FileExistsError:
         ...
     #Connect to DB
-    rankDatabaseConnection = sqlite3.connect('../data/excuses_ranks.db')
+    rankDatabaseConnection = sqlite3.connect(rankDatabasePath)
     cursor = rankDatabaseConnection.cursor()
     #Create DB if not exist
     cursor.execute('''
