@@ -21,6 +21,7 @@ async def change_excuse_rank(text: str, deltaRank = 1):
 async def get_excuses(numberOfExcuses = 0, needAll: bool = False):
     return model.get_excuses(numberOfExcuses, needAll)
 
+#Get a new joke
 @router.get("/generate-joke", response_class=JSONResponse)
 async def generate_joke():
     return huggingface_api.generate_excuse()   
