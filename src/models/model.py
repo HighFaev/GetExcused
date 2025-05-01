@@ -36,7 +36,10 @@ def check_if_exist(text: str, cursor: Cursor):
         return False
 
 #Add excuse to BD
-def add_excuse(text: str, cursor: Cursor):
+def add_excuse(text: str, cursor:Cursor = None):
+    databaseConnection = None
+    if cursor == None:
+        databaseConnection, cursor = connect_to_db(rankDatabasePath)
     #Check if element not already exsist
     if (not check_if_exist(text, cursor)):
         #Find max id
@@ -47,18 +50,23 @@ def add_excuse(text: str, cursor: Cursor):
             max_id = 0
         #Insert new element
         cursor.execute('INSERT INTO Excuses (id, text, rank) VALUES (?, ?, ?)', (max_id + 1, text, 0))
-       
+    
+    if databaseConnection != None:
+        disconnect_from_db(databaseConnection, cursor)
 
-#Change 'rank' in BD and delete element if 'rank' < 1
+#Change 'rank' in BD and delete element if 'rank' < 0
 def change_rank(text: str, deltaRank: int):
+    #Return if trying to change rank more then one. Need it to further protection
+    if(abs(deltaRank) > 1):
+        return 
     #Connect to DB
     rankDatabaseConnection, cursor = connect_to_db(rankDatabasePath)
-    #Try to add element
-    add_excuse(text, cursor)
+    #Try to add element : OUTDATED. No more reason, elements add to db when /generate-joke is called
+    #add_excuse(text, cursor)
     #Update'rank'
     cursor.execute('UPDATE Excuses SET rank = rank + ? WHERE text = ?', (deltaRank, text))
-    #Delete element if 'rank' < 1
-    cursor.execute('DELETE FROM Excuses WHERE text = ? AND rank < 1', (text,))
+    #Delete element if 'rank' < 0
+    cursor.execute('DELETE FROM Excuses WHERE text = ? AND rank < 0', (text,))
 
     #Save changes
     disconnect_from_db(rankDatabaseConnection, cursor)

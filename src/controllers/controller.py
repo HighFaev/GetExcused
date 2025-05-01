@@ -2,6 +2,7 @@ from fastapi import Request, APIRouter
 from fastapi.responses import HTMLResponse, JSONResponse
 import src.models.model as model
 import src.views.view as view
+import src.services.huggingface_api as huggingface_api
 
 router = APIRouter()
 
@@ -18,4 +19,11 @@ async def change_excuse_rank(text: str, deltaRank = 1):
 #Get some excuses in sorted order (by rank)
 @router.get("/get-excuses", response_class=JSONResponse)
 async def get_excuses(numberOfExcuses = 0, needAll: bool = False):
-    return model.get_excuses(numberOfExcuses, needAll)   
+    return model.get_excuses(numberOfExcuses, needAll)
+
+#Get a new joke
+@router.get("/generate-joke", response_class=JSONResponse)
+async def generate_joke():
+    joke = huggingface_api.generate_excuse()
+    model.add_excuse(joke)
+    return joke

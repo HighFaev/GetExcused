@@ -6,7 +6,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY src ./src
 COPY templates ./templates
+COPY data ./data
 COPY main.py .
+
+#DELETE THIS IN THE FUTURE!!!
+COPY secret_keys.env .
 
 EXPOSE 8080
 

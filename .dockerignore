@@ -1,22 +1,9 @@
-# git and venv  
-.git/  
-.venv/  
+#git andvenv  
+.git
 venv/  
 
 # cache
-__pycache__/  
-*.pyc  
-*.pyo  
-*.pyd  
-.env  
-.idea/  
-.vscode/  
+__pycache__
 
-# logs and tmps
-*.log  
-*.tmp  
-
-#Ignore big files
-*.csv  
-*.zip
+#Ignore database
 **/*.db
