@@ -24,4 +24,6 @@ async def get_excuses(numberOfExcuses = 0, needAll: bool = False):
 #Get a new joke
 @router.get("/generate-joke", response_class=JSONResponse)
 async def generate_joke():
-    return huggingface_api.generate_excuse()   
+    joke = huggingface_api.generate_excuse()
+    model.add_excuse(joke)
+    return joke
