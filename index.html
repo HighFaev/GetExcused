@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GetExcused</title>
+  <link rel="stylesheet" href="main.css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="image/favicon-16x16.png">
+  <link rel="manifest" href="image/site.webmanifest">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+  <button class="burger" id = "burger">&#9776;
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <div class="sidebar-menu" id="burger-menu">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <hr>
+    <button id="toggle-theme" class="theme-btn">Toggle Theme</button>
+  </div>
+</div>
+
+    <!-- Main content -->
+    <div class="main">
+      <h1>Get Your Excuse</h1>
+      <button id="generate">Generate Excuse</button>
+      <div id="excuse-box"></div>
+    </div>
+
+    <!-- Leaderboard -->
+    <div class="leaderboard">
+      <h2>Top Excuses</h2>
+      <table id="ranking-table">
+        <thead>
+          <tr>
+            <th>Excuse</th>
+            <th>Votes</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Fetched via API -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
