@@ -1,12 +1,6 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pathlib import Path
-
-
-
-import src.controllers.controller as controller
+import src.presenters.presenter as controller
 
 #Start FastAPI app
 app = FastAPI()

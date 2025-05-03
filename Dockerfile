@@ -5,7 +5,6 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY src ./src
-COPY templates ./templates
 COPY data ./data
 COPY main.py .
 

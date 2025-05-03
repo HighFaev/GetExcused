@@ -1,15 +1,14 @@
 from fastapi import Request, APIRouter
 from fastapi.responses import HTMLResponse, JSONResponse
 import src.models.model as model
-import src.views.view as view
 import src.services.huggingface_api as huggingface_api
 
 router = APIRouter()
 
 #Root page
 @router.get("/", response_class=HTMLResponse)
-async def root(request: Request):
-    return view.render_home_page(request)
+async def root():
+    return "Hello from getExcused server!"
 
 #Change excuses rank
 @router.post("/change-excuse-rank",)
