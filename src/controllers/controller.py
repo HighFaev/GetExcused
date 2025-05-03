@@ -13,12 +13,12 @@ async def root(request: Request):
 
 #Change excuses rank
 @router.post("/change-excuse-rank",)
-async def change_excuse_rank(text: str, deltaRank = 1):
+async def change_excuse_rank(text: str, deltaRank: int = 1):
     model.change_rank(text, deltaRank)
 
 #Get some excuses in sorted order (by rank)
 @router.get("/get-excuses", response_class=JSONResponse)
-async def get_excuses(numberOfExcuses = 0, needAll: bool = False):
+async def get_excuses(numberOfExcuses: int = 0, needAll: bool = False):
     return model.get_excuses(numberOfExcuses, needAll)
 
 #Get a new joke
