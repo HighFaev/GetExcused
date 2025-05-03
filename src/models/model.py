@@ -36,7 +36,7 @@ def check_if_exist(text: str, cursor: Cursor):
         return False
 
 #Add excuse to BD
-def add_excuse(text: str, cursor:Cursor = None):
+def add_excuse(text: str, cursor: Cursor = None):
     databaseConnection = None
     if cursor == None:
         databaseConnection, cursor = connect_to_db(rankDatabasePath)
@@ -72,7 +72,7 @@ def change_rank(text: str, deltaRank: int):
     disconnect_from_db(rankDatabaseConnection, cursor)
 
 #Get certian amount of Excuses from DB
-def get_excuses(numberOfExcuses: int, needAll = False):
+def get_excuses(numberOfExcuses: int, needAll: bool = False):
     #Connect to DB
     rankDatabaseConnection, cursor = connect_to_db(rankDatabasePath)
     #Get values
