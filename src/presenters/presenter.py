@@ -17,7 +17,7 @@ async def change_excuse_rank(id: int, deltaRank: int=1):
 
 #Get some excuses in sorted order (by rank)
 @router.get("/get-excuses", response_class=JSONResponse)
-async def get_excuses(numberOfExcuses = 0, needAll: bool = False):
+async def get_excuses(numberOfExcuses: int = 0, needAll: bool = False):
     return model.get_excuses(numberOfExcuses, needAll)
 
 #Get a new joke
