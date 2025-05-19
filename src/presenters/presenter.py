@@ -11,9 +11,9 @@ async def root():
     return "Hello from getExcused server!"
 
 #Change excuses rank
-@router.post("/change-excuse-rank",)
-async def change_excuse_rank(text: str, deltaRank = 1):
-    model.change_rank(text, deltaRank)
+@router.post("/change-excuse-rank")
+async def change_excuse_rank(id: int, deltaRank: int=1):
+    model.change_rank(id, deltaRank)
 
 #Get some excuses in sorted order (by rank)
 @router.get("/get-excuses", response_class=JSONResponse)
@@ -24,5 +24,5 @@ async def get_excuses(numberOfExcuses = 0, needAll: bool = False):
 @router.get("/generate-joke", response_class=JSONResponse)
 async def generate_joke():
     joke = huggingface_api.generate_excuse()
-    model.add_excuse(joke)
-    return joke
+    id = model.add_excuse(joke)
+    return {'joke': joke, 'id': id}

@@ -45,28 +45,31 @@ def add_excuse(text: str, cursor:Cursor = None):
         #Find max id
         result_max_id = cursor.execute('SELECT MAX(id) FROM Excuses').fetchone()
         if(result_max_id[0] is not None):
-            max_id = result_max_id[0]
+            id = result_max_id[0] + 1
         else:
-            max_id = 0
+            id = 1
+
         #Insert new element
-        cursor.execute('INSERT INTO Excuses (id, text, rank) VALUES (?, ?, ?)', (max_id + 1, text, 0))
-    
-    if databaseConnection != None:
+        cursor.execute('INSERT INTO Excuses (id, text, rank) VALUES (?, ?, ?)', (id, text, 0))
+        print(f"ID = {id}")
+
         disconnect_from_db(databaseConnection, cursor)
+        return id
 
 #Change 'rank' in BD and delete element if 'rank' < 0
-def change_rank(text: str, deltaRank: int):
+def change_rank(id: int, deltaRank: int):
     #Return if trying to change rank more then one. Need it to further protection
     if(abs(deltaRank) > 1):
         return 
     #Connect to DB
     rankDatabaseConnection, cursor = connect_to_db(rankDatabasePath)
+
     #Try to add element : OUTDATED. No more reason, elements add to db when /generate-joke is called
     #add_excuse(text, cursor)
     #Update'rank'
-    cursor.execute('UPDATE Excuses SET rank = rank + ? WHERE text = ?', (deltaRank, text))
+    cursor.execute('UPDATE Excuses SET rank = rank + ? WHERE id = ?', (deltaRank, id))
     #Delete element if 'rank' < 0
-    cursor.execute('DELETE FROM Excuses WHERE text = ? AND rank < 0', (text,))
+    cursor.execute('DELETE FROM Excuses WHERE id = ? AND rank < 0', (id,))
 
     #Save changes
     disconnect_from_db(rankDatabaseConnection, cursor)
@@ -77,11 +80,13 @@ def get_excuses(numberOfExcuses: int, needAll = False):
     rankDatabaseConnection, cursor = connect_to_db(rankDatabasePath)
     #Get values
     if needAll:
-        cursor.execute('SELECT * FROM Excuses')
+        cursor.execute('SELECT * FROM Excuses WHERE rank >= 0')
     else:
-        cursor.execute('SELECT * FROM Excuses ORDER BY rank DESC LIMIT ?', (numberOfExcuses,))
+        cursor.execute('SELECT * FROM Excuses WHERE rank >= 0 ORDER BY rank DESC LIMIT ?', (numberOfExcuses,))
     results = cursor.fetchall()
     
+    print(results)
+
     #Disconnect from DB
     disconnect_from_db(rankDatabaseConnection, cursor)
     #Return results
