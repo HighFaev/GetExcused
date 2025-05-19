@@ -1,0 +1,74 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: #e74c3c;
+    text-align: center;
+}
+
+.excuse-box {
+    background: #fff3b0;
+    padding: 25px;
+    margin: 30px 0;
+    border-radius: 10px;
+    font-size: 1.4em;
+    text-align: center;
+    min-height: 80px;
+}
+
+.buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    background: #3498db;
+    color: white;
+    transition: transform 0.2s;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: #2980b9;
+}
+
+#excusesTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#excusesTable th {
+    background: #2ecc71;
+    color: white;
+    padding: 12px;
+}
+
+#excusesTable td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+#excusesTable tr:nth-child(even) {
+    background: #f9f9f9;
+}
